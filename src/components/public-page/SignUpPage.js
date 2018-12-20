@@ -1,6 +1,7 @@
 import TextInputUserName from "./TextInputUserName";
 import React from "react";
 import ErrorMessage from "../error/ErrorMessage";
+import {loadSpinner, unloadSpinner} from "../../helper/spinner";
 
 export default function SignUpPage({
     daiictId,
@@ -12,7 +13,7 @@ export default function SignUpPage({
     clearSignupMessage,
     handleSignUp,
     isSignedup,
-    handleResendVerificationLink
+    handleResendVerificationLink,
 }) {
     return (
         <div className="page signup">
@@ -42,7 +43,7 @@ export default function SignUpPage({
                             </span>
                         </div>
                     </div>
-                    <ErrorMessage message={signupMessage} clearMessage={clearSignupMessage} />
+                   <ErrorMessage  message={signupMessage} clearMessage={clearSignupMessage}  />
                 </div>
                 <div className="page-input"><input type="submit" value="SIGN ME UP!"
                     onClick={(e) => {

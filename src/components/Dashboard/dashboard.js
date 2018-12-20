@@ -230,7 +230,7 @@ class dashboard extends Component {
                                                                 <td style={{borderRight: "1px solid #e1e1e1"}}>
                                                                     {service.count}
                                                                 </td>
-                                                                <td>{`₹ ${service.revenue}`}</td>
+                                                                <td>{'₹ ${service.revenue}'}</td>
                                                             </tr>
                                                         )
                                                     })

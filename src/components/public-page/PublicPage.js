@@ -8,6 +8,7 @@ import ForgotPassword from "./ForgotPassword";
 import SignUpPage from "./SignUpPage"
 import SignInPage from "./SignInPage"
 import { withAlert } from "react-alert";
+import {loadSpinner, unloadSpinner} from "../../helper/spinner";
 
 class PublicPage extends Component {
     constructor() {
@@ -21,18 +22,35 @@ class PublicPage extends Component {
             signupMessage: '',
             forgotPasswordMessage: '',
             showPassword: false,
-            modalIsOpen: false
+            modalIsOpen: false,
+            showSpinner: false
         }
+    }
+    showSpinner = () => {
+        this.setState({
+            showSpinner: true
+        })
+    }
+
+    hideSpinner = () => {
+        this.setState({
+            showSpinner: false
+        })
     }
 
     handleChange = ({target}) => {
+        loadSpinner();
+
         this.setState({
             [target.name]: target.value,
             isSignedup: false
         })
+        unloadSpinner();
+
     }
 
     switchTab = () => {
+        loadSpinner();
         this.props.clearLoginMessage();
         this.setState({
             login: !this.state.login,
@@ -41,9 +59,12 @@ class PublicPage extends Component {
             signupMessage: '',
             isSignedup: false
         })
+        unloadSpinner();
+
     }
 
     handleSignUp = () => {
+        loadSpinner();
         this.setState({
             isSignedup: false,
             signupMessage: ''
@@ -77,17 +98,21 @@ class PublicPage extends Component {
                     signupMessage: request.responseText
                 })
             }
-            that.props.hideSpinner();
+            unloadSpinner();
         };
         request.send(JSON.stringify(userObj));
     }
 
     handleResendVerificationLink = () => {
+        loadSpinner();
+
         var url = domainUrl + '/account/resendVerificationLink/' + this.state.daiictId;
         var request = new XMLHttpRequest();
         request.open('GET', url, true);
         request.withCredentials = true;
         request.send();
+        unloadSpinner();
+
     };
 
     changePassworVisibility = () => {
@@ -136,15 +161,23 @@ class PublicPage extends Component {
     };
 
     clearSignupMessage = () => {
+        loadSpinner();
+
         this.setState({
             signupMessage: ''
         })
+        unloadSpinner();
+
     };
 
     clearForgetPasswordMessage = () => {
+        loadSpinner();
+
         this.setState({
             forgotPasswordMessage: ''
         })
+        unloadSpinner();
+
     };
 
 
@@ -183,7 +216,9 @@ class PublicPage extends Component {
                                                     signupMessage={signupMessage}
                                                     clearSignupMessage={this.clearSignupMessage}
                                                     handleSignUp={this.handleSignUp}
-                                                    handleChange={this.handleChange}/>
+                                                    handleChange={this.handleChange}
+                                                    />
+
                                     </div>
                                     <div className="tabs"><label className="tab" htmlFor="signin">
                                         <div className="text">Sign In</div>

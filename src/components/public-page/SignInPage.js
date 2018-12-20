@@ -2,6 +2,7 @@ import TextInputUserName from "./TextInputUserName";
 import React from "react";
 import {withRouter} from 'react-router-dom'
 import ErrorMessage from "../error/ErrorMessage";
+import {loadSpinner, unloadSpinner} from "../../helper/spinner";
 
 class SignInPage extends React.Component {
     redirect = () => {
